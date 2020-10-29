@@ -1,28 +1,26 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import isoCountries from '../isoCountries';
+import key from '../weatherApiKey';
 import '../styles/SearchBar.scss';
 
 function SearchBar() {
-  const cityData = require('../city.list.min.json');
   const [cities, setCities] = useState([]);
 
-  function getCities(value) {
-    const cities = [];
-    if (value.length > 2) {
-      cityData.forEach((city) => {
-        if (city.name.toLowerCase().includes(value.toLowerCase())) {
-          cities.push(city);
-        }
-      });
+  async function getCities(value) {
+    let returnCities = [];
+    if (value.length > 0) {
+      const response = await fetch(
+        `http://api.weatherapi.com/v1/search.json?key=${key}&q=${value || ''}`,
+      );
+      returnCities = await response.json();
     }
-    return cities;
+
+    return returnCities;
   }
 
-  function updateCities({target}) {
-    const cities = getCities(target.value);
-    const citiesSorted = cities.sort((a, b) => (a.name < b.name) ? -1 : (a.name > b.name) ? 1 : 0);
-    setCities(citiesSorted);
+  async function updateCities({ target }) {
+    const returnCities = await getCities(target.value);
+    setCities(returnCities);
   }
 
   function clearInput() {
@@ -32,23 +30,42 @@ function SearchBar() {
   }
 
   return (
-    <div className='search'>
-      <div className='search-bar'>
-        <input type="text" name='city' autoComplete='off' required onChange={updateCities} onClick={clearInput} className='search-input' />
-        <label htmlFor="city" className='city-label'>
+    <div className="search">
+      <div className="search-bar">
+        <input
+          type="text"
+          name="city"
+          autoComplete="off"
+          required
+          onChange={updateCities}
+          onClick={clearInput}
+          className="search-input"
+        />
+        <label htmlFor="city" className="city-label">
           <span className="label-content">City</span>
         </label>
       </div>
       <div className="search-result">
         {cities.map((city) => (
-          <Link key={city.id} to={`/${city.id}`} className='city-data' onClick={clearInput}>
-            <h2>{city.name}</h2>
-            <h3>{isoCountries[city.country]}{city.state ? ` (${city.state})` : ''}</h3>
+          <Link
+            key={city.id}
+            to={{
+              pathname: `/${city.id}`,
+              state: {
+                lat: city.lat,
+                lon: city.lon,
+              },
+            }}
+            className="city-data"
+            onClick={clearInput}
+          >
+            <h2>{city.name.split(',')[0]}</h2>
+            <h3>{city.country}</h3>
           </Link>
         ))}
       </div>
     </div>
-  )
+  );
 }
 
 export default SearchBar;

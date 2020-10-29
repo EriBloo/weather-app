@@ -1,28 +1,30 @@
 import { useEffect } from 'react';
+// eslint-disable-next-line no-unused-vars
 import { useParams } from 'react-router-dom';
-import key from '../openWeatherKey';
+import key from '../weatherApiKey';
 import '../styles/WeatherPage.scss';
 
 function WeatherPage(props) {
-  useEffect(() => {
-    getCurrentWeather();
-  }, []);
-
-  const {id} = useParams();
-
   async function getCurrentWeather() {
-    const response = await fetch(`api.openweathermap.org/data/2.5/weather?id=${id}&appid=${key}`, { mode: 'cors'});
-    console.log(response.url);
+    const response = await fetch(
+      // eslint-disable-next-line react/prop-types
+      `http://api.weatherapi.com/v1/current.json?key=${key}&q=${props.location.state.lat},${props.location.state.lon}`,
+      { mode: 'cors' },
+    );
     const currentWeather = await response.json();
 
     console.log(currentWeather);
   }
 
-  return (
-    <div className='weather-page'>
+  useEffect(() => {
+    getCurrentWeather();
+  });
 
+  return (
+    <div className="weather-page">
+      test
     </div>
-  )
+  );
 }
 
 export default WeatherPage;
