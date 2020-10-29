@@ -1,0 +1,117 @@
+.search {
+
+  .search-bar {
+    font-size: 1.5rem;
+    width: 20rem;
+    height: 3.5rem;
+    position: relative;
+    overflow: hidden;
+
+    .search-input {
+      width: 100%;
+      height: 100%;
+      padding-top: 1rem;
+      background-color: inherit;
+      color: #595f6e;
+      border: none;
+      outline: none;
+
+      &:focus + .city-label .label-content,
+      &:valid + .city-label .label-content {
+        transform: translateY(-100%);
+        color: #5fa8d3;
+        font-size: 1.4rem;
+      }
+
+      &:focus + .city-label::after,
+      &:valid + .city-label::after {
+        transform: translateX(0);
+      }
+    }
+
+    .city-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      border-bottom: 1px solid #666666;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-bottom: 3px solid #5fa8d3;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+
+      .label-content {
+        position: absolute;
+        bottom: 5px;
+        left: 0;
+        color: #333333;
+        transition: transform 0.3s ease;
+      }
+    }
+  }
+}
+
+.search-result {
+  position: absolute;
+  max-height: 20rem;
+  width: 20rem;
+  overflow-y: auto;
+  border: solid 1px #666666;
+  border-radius: 5px;
+  margin-top: 0.5rem;
+
+  .city-data {
+    height: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #595f6e;
+    text-decoration: none;
+    padding: 0 0.3rem 0 0.3rem;
+    border-radius: 5px;
+    cursor: pointer;
+
+    h2 {
+      font-size: 1rem;
+      font-weight: 300;
+    }
+
+    h3 {
+      font-size: 0.8rem;
+      font-weight: 300;
+    }
+
+    &:hover {
+      background-color: #dddddd;
+    }
+  }
+
+  &:empty {
+    display: none;
+  }
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 2px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    border-radius: 2px;
+  }
+}
