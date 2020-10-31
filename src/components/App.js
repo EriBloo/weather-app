@@ -9,7 +9,8 @@ function App() {
 
   // eslint-disable-next-line no-unused-vars
   function toggleUnits() {
-    const newUnits = units === 'metric' ? 'imperial' : 'metric';
+    // toggle between metric and imperial units
+    const newUnits = (units === 'metric' ? 'imperial' : 'metric');
     setUnits(newUnits);
   }
 

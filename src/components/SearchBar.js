@@ -7,10 +7,11 @@ function SearchBar() {
   const [cities, setCities] = useState([]);
 
   async function getCities(value) {
+    // get an array of city objects that can be searched and used with API
     let returnCities = [];
     if (value.length > 0) {
       const response = await fetch(
-        `http://api.weatherapi.com/v1/search.json?key=${key}&q=${value || ''}`,
+        `http://api.weatherapi.com/v1/search.json?key=${key}&q=${value}`,
       );
       returnCities = await response.json();
     }
@@ -54,6 +55,7 @@ function SearchBar() {
               state: {
                 lat: city.lat,
                 lon: city.lon,
+                name: city.name,
               },
             }}
             className="city-data"

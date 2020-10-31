@@ -1,5 +1,20 @@
-.weather-page {
-  font-size: 1.4rem;
-  width: 100vw;
-  height: 80vh;
+.weather-wrapper {
+  display: grid;
+  place-items: center;
+
+  .weather-page {
+    font-size: 1.4rem;
+    width: 100vw;
+    height: 90vh;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-gap: 2rem;
+    place-items: center;
+
+    .large {
+      grid-column: 2/4;
+    }
+  }
 }

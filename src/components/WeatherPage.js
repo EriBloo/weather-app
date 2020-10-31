@@ -1,28 +1,52 @@
-import { useEffect } from 'react';
-// eslint-disable-next-line no-unused-vars
-import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import CurrentPanel from './CurrentPanel';
+import SmallPanel from './SmallPanel';
+import LargePanel from './LargePanel';
 import key from '../weatherApiKey';
 import '../styles/WeatherPage.scss';
 
 function WeatherPage(props) {
-  async function getCurrentWeather() {
+  const [current, setCurrent] = useState(null);
+  const [forecast, setForecast] = useState(null);
+  const city = props.location.state.name;
+
+  async function getWeather() {
+    // get data from API
     const response = await fetch(
-      // eslint-disable-next-line react/prop-types
-      `http://api.weatherapi.com/v1/current.json?key=${key}&q=${props.location.state.lat},${props.location.state.lon}`,
+      `http://api.weatherapi.com/v1/forecast.json?key=${key}&q=${props.location.state.lat},${props.location.state.lon}&days=3`,
       { mode: 'cors' },
     );
-    const currentWeather = await response.json();
+    const data = await response.json();
 
-    console.log(currentWeather);
+    console.log(data);
+    return data;
+  }
+
+  async function updateWeather() {
+    // set data to variables
+    const weather = await getWeather();
+    setCurrent(weather.current);
+    setForecast(weather.forecast.forecastday);
   }
 
   useEffect(() => {
-    getCurrentWeather();
-  });
+    // update weather if we change path (in this case id of city)
+    updateWeather();
+  }, [props.location.pathname]);
 
+  if (!current || !forecast || !city) {
+    // if data is not yet present render nothing (otherwise it would throw error in children render)
+    return null;
+  }
   return (
-    <div className="weather-page">
-      test
+    <div className="weather-wrapper">
+      <div className="weather-page">
+        <CurrentPanel weather={current} city={city} />
+        <LargePanel />
+        <SmallPanel weather={forecast[0]} />
+        <SmallPanel weather={forecast[1]} />
+        <SmallPanel weather={forecast[2]} />
+      </div>
     </div>
   );
 }
