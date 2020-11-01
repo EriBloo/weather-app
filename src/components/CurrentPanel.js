@@ -13,8 +13,8 @@ function CurrentPanel(props) {
           <p className="condition">{props.weather.condition.text}</p>
         </span>
         <span className="row-wrapper">
-          <p className="temp">
-            {'temperature: '}
+          <p>{'temperature: '}</p>
+          <p>
             {props.weather.temp_c}
             <span>&#176;</span>
             {'C (feels like '}
@@ -24,24 +24,24 @@ function CurrentPanel(props) {
           </p>
         </span>
         <span className="row-wrapper">
-          <p className="wind">
-            {'wind speed: '}
+          <p>{'wind speed: '}</p>
+          <p>
             {props.weather.wind_kph}
-            {' km/h (with gusts up to '}
+            {' km/h (gusts up to '}
             {props.weather.gust_kph}
             {' km/h)'}
           </p>
         </span>
         <span className="row-wrapper">
-          <p className="precipitation">
-            {'precipitation: '}
+          <p>{'precipitation: '}</p>
+          <p>
             {props.weather.precip_mm}
             {' mm'}
           </p>
         </span>
         <span className="row-wrapper">
-          <p className="humidity">
-            {'humidity: '}
+          <p>{'humidity: '}</p>
+          <p>
             {props.weather.humidity}
             {'%'}
           </p>

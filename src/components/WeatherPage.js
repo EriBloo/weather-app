@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
+import { differenceInDays, endOfToday } from 'date-fns';
 import CurrentPanel from './CurrentPanel';
-import SmallPanel from './SmallPanel';
+import ForecastPanel from './ForecastPanel';
 import ChartPanel from './ChartPanel';
 import key from '../weatherApiKey';
 import '../styles/WeatherPage.scss';
@@ -8,6 +9,7 @@ import '../styles/WeatherPage.scss';
 function WeatherPage(props) {
   const [current, setCurrent] = useState(null);
   const [forecast, setForecast] = useState(null);
+  const [day, setDay] = useState(0);
   const city = props.location.state.name;
 
   async function getWeather() {
@@ -29,6 +31,11 @@ function WeatherPage(props) {
     setForecast(weather.forecast.forecastday);
   }
 
+  function changeDay(date) {
+    const newDay = differenceInDays(new Date(date), endOfToday());
+    setDay(newDay);
+  }
+
   useEffect(() => {
     // update weather if we change path (in this case id of city)
     updateWeather();
@@ -42,10 +49,10 @@ function WeatherPage(props) {
     <div className="weather-wrapper">
       <div className="weather-page">
         <CurrentPanel weather={current} city={city} />
-        <ChartPanel weather={forecast[0].hour} />
-        <SmallPanel weather={forecast[0]} />
-        <SmallPanel weather={forecast[1]} />
-        <SmallPanel weather={forecast[2]} />
+        <ChartPanel weather={forecast[day].hour} />
+        <ForecastPanel weather={forecast[0]} changeDay={changeDay} />
+        <ForecastPanel weather={forecast[1]} changeDay={changeDay} />
+        <ForecastPanel weather={forecast[2]} changeDay={changeDay} />
       </div>
     </div>
   );

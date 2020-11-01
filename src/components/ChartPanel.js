@@ -27,7 +27,7 @@ function ChartPanel(props) {
     <div className="panel-wrapper large">
       <div className="panel">
         <div className="choose-chart">
-          <button type="button" onClick={changeChart} data="temp" className="active">Temperature</button>
+          <button type="button" onClick={changeChart} data="temp" className="active">Temp</button>
           <button type="button" onClick={changeChart} data="rain">Rain</button>
           <button type="button" onClick={changeChart} data="wind">Wind</button>
         </div>

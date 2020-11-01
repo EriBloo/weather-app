@@ -38,8 +38,8 @@
     .row-wrapper {
       width: 90%;
       display: flex;
-      justify-content: center;
-      text-align: center;
+      flex-direction: row;
+      justify-content: space-between;
       margin-top: 1rem;
 
       p {
@@ -76,5 +76,14 @@
         color: #5fa8d3;
       }
     }
+  }
+}
+
+.forecast {
+  transition: transform 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.03);
   }
 }

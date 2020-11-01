@@ -42,7 +42,6 @@ function RainChart(props) {
       d.precip_mm,
       d.humidity,
     ]));
-
     return dataToReturn;
   }
 
@@ -66,7 +65,10 @@ function RainChart(props) {
         series: {
           1: { targetAxisIndex: '1', type: 'line' },
         },
-        vAxes: { 0: { title: 'Precipitation (mm)', baseline: 0, minValue: 1 }, 1: { title: 'Humidity (%)', baseline: 0 } },
+        vAxes: {
+          0: { title: 'Precipitation (mm)', baseline: 0, minValue: 1 },
+          1: { title: 'Humidity (%)', baseline: 0 },
+        },
         vAxis: { baseline: 0 },
       }}
     />

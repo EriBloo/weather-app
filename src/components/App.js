@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import WeatherPage from './WeatherPage';
+import ToggleUnits from './ToggleUnits';
 import '../styles/App.scss';
 
 function App() {
   const [units, setUnits] = useState('metric');
 
-  // eslint-disable-next-line no-unused-vars
   function toggleUnits() {
     // toggle between metric and imperial units
     const newUnits = (units === 'metric' ? 'imperial' : 'metric');
@@ -18,6 +18,7 @@ function App() {
     <div className="app">
       <Router>
         <nav className="nav">
+          <ToggleUnits toggleUnits={toggleUnits} />
           <SearchBar />
         </nav>
         <Switch>
