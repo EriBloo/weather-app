@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import CurrentPanel from './CurrentPanel';
 import SmallPanel from './SmallPanel';
-import LargePanel from './LargePanel';
+import ChartPanel from './ChartPanel';
 import key from '../weatherApiKey';
 import '../styles/WeatherPage.scss';
 
@@ -42,7 +42,7 @@ function WeatherPage(props) {
     <div className="weather-wrapper">
       <div className="weather-page">
         <CurrentPanel weather={current} city={city} />
-        <LargePanel />
+        <ChartPanel weather={forecast[0].hour} />
         <SmallPanel weather={forecast[0]} />
         <SmallPanel weather={forecast[1]} />
         <SmallPanel weather={forecast[2]} />

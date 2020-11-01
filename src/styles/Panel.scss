@@ -51,4 +51,30 @@
 
 .large {
   grid-column: 2/4;
+
+  .choose-chart {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+
+    button {
+      background-color: inherit;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      color: #bbbbbb;
+
+      &:hover {
+        color: #595f6e;
+      }
+    }
+
+    .active {
+      color: #5fa8d3;
+
+      &:hover {
+        color: #5fa8d3;
+      }
+    }
+  }
 }

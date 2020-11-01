@@ -12,9 +12,5 @@
     grid-template-rows: repeat(2, 1fr);
     grid-gap: 2rem;
     place-items: center;
-
-    .large {
-      grid-column: 2/4;
-    }
   }
 }
