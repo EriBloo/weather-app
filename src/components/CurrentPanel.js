@@ -1,6 +1,45 @@
+import { useState, useEffect } from 'react';
 import '../styles/Panel.scss';
 
 function CurrentPanel(props) {
+  const [conditions, setConditions] = useState({});
+
+  function changeConditions(units, weather) {
+    if (units === 'metric') {
+      return {
+        temp: weather.temp_c,
+        feelsLike: weather.feelslike_c,
+        tempUnit: 'C',
+        wind: weather.wind_kph,
+        gust: weather.gust_kph,
+        windUnit: 'kph',
+        precipitation: weather.precip_mm,
+        precipitationUnit: 'mm',
+        humidity: weather.humidity,
+        humidityUnit: '%',
+      };
+    }
+    if (units === 'imperial') {
+      return {
+        temp: weather.temp_f,
+        feelsLike: weather.feelslike_f,
+        tempUnit: 'F',
+        wind: weather.wind_mph,
+        gust: weather.gust_mph,
+        windUnit: 'mph',
+        precipitation: weather.precip_in,
+        precipitationUnit: 'in',
+        humidity: weather.humidity,
+        humidityUnit: '%',
+      };
+    }
+    return {};
+  }
+
+  useEffect(() => {
+    setConditions(changeConditions(props.units, props.weather));
+  }, [props.units]);
+
   return (
     <div className="panel-wrapper">
       <div className="panel current">
@@ -15,34 +54,41 @@ function CurrentPanel(props) {
         <span className="row-wrapper">
           <p>{'temperature: '}</p>
           <p>
-            {props.weather.temp_c}
+            {conditions.temp}
             <span>&#176;</span>
-            {'C (feels like '}
-            {props.weather.feelslike_c}
+            {conditions.tempUnit}
+            {' (feels like '}
+            {conditions.feelsLike}
             <span>&#176;</span>
-            {'C)'}
+            {conditions.tempUnit}
+            {')'}
           </p>
         </span>
         <span className="row-wrapper">
           <p>{'wind speed: '}</p>
           <p>
-            {props.weather.wind_kph}
-            {' km/h (gusts up to '}
-            {props.weather.gust_kph}
-            {' km/h)'}
+            {conditions.wind}
+            {' '}
+            {conditions.windUnit}
+            {' (gusts up to '}
+            {conditions.gust}
+            {' '}
+            {conditions.windUnit}
+            {')'}
           </p>
         </span>
         <span className="row-wrapper">
           <p>{'precipitation: '}</p>
           <p>
-            {props.weather.precip_mm}
-            {' mm'}
+            {conditions.precipitation}
+            {' '}
+            {conditions.precipitationUnit}
           </p>
         </span>
         <span className="row-wrapper">
           <p>{'humidity: '}</p>
           <p>
-            {props.weather.humidity}
+            {conditions.humidity}
             {'%'}
           </p>
         </span>

@@ -1,7 +1,42 @@
+import { useState, useEffect } from 'react';
 import { format } from 'date-fns';
 import '../styles/Panel.scss';
 
 function ForecastPanel(props) {
+  const [conditions, setConditions] = useState({});
+
+  function changeConditions(units, weather) {
+    if (units === 'metric') {
+      return {
+        avgTemp: weather.day.avgtemp_c,
+        tempUnit: 'C',
+        maxWind: weather.day.maxwind_kph,
+        windUnit: 'kph',
+        totalPrecipitation: weather.day.totalprecip_mm,
+        precipitationUnit: 'mm',
+        avgHumidity: weather.day.avghumidity,
+        humidityUnit: '%',
+      };
+    }
+    if (units === 'imperial') {
+      return {
+        avgTemp: weather.day.avgtemp_f,
+        tempUnit: 'F',
+        maxWind: weather.day.maxwind_mph,
+        windUnit: 'mph',
+        totalPrecipitation: weather.day.totalprecip_in,
+        precipitationUnit: 'in',
+        avgHumidity: weather.day.avghumidity,
+        humidityUnit: '%',
+      };
+    }
+    return {};
+  }
+
+  useEffect(() => {
+    setConditions(changeConditions(props.units, props.weather));
+  }, [props.units]);
+
   return (
     <div className="panel-wrapper">
       <div className="panel forecast" onClick={() => props.changeDay(props.weather.date)}>
@@ -13,30 +48,32 @@ function ForecastPanel(props) {
         <span className="row-wrapper">
           <p>{'average temperature: '}</p>
           <p>
-            {props.weather.day.avgtemp_c}
+            {conditions.avgTemp}
             <span>&#176;</span>
-            {'C'}
+            {conditions.tempUnit}
           </p>
         </span>
         <span className="row-wrapper">
           <p>{'max wind speed: '}</p>
           <p>
-            {props.weather.day.maxwind_kph}
-            {' km/h'}
+            {conditions.maxWind}
+            {' '}
+            {conditions.windUnit}
           </p>
         </span>
         <span className="row-wrapper">
           <p>{'total precipitation: '}</p>
           <p>
-            {props.weather.day.totalprecip_mm}
-            {' mm'}
+            {conditions.totalPrecipitation}
+            {' '}
+            {conditions.precipitationUnit}
           </p>
         </span>
         <span className="row-wrapper">
           <p>{'average humidity: '}</p>
           <p>
-            {props.weather.day.avghumidity}
-            {'%'}
+            {conditions.avgHumidity}
+            {conditions.humidity}
           </p>
         </span>
       </div>

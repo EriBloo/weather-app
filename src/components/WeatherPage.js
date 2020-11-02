@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { differenceInDays, endOfToday } from 'date-fns';
+import { differenceInCalendarDays } from 'date-fns';
 import CurrentPanel from './CurrentPanel';
 import ForecastPanel from './ForecastPanel';
 import ChartPanel from './ChartPanel';
@@ -32,7 +32,7 @@ function WeatherPage(props) {
   }
 
   function changeDay(date) {
-    const newDay = differenceInDays(new Date(date), endOfToday());
+    const newDay = differenceInCalendarDays(new Date(date), new Date());
     setDay(newDay);
   }
 
@@ -48,11 +48,11 @@ function WeatherPage(props) {
   return (
     <div className="weather-wrapper">
       <div className="weather-page">
-        <CurrentPanel weather={current} city={city} />
-        <ChartPanel weather={forecast[day].hour} />
-        <ForecastPanel weather={forecast[0]} changeDay={changeDay} />
-        <ForecastPanel weather={forecast[1]} changeDay={changeDay} />
-        <ForecastPanel weather={forecast[2]} changeDay={changeDay} />
+        <CurrentPanel weather={current} city={city} units={props.units} />
+        <ChartPanel weather={forecast[day].hour} units={props.units} />
+        <ForecastPanel weather={forecast[0]} changeDay={changeDay} units={props.units} />
+        <ForecastPanel weather={forecast[1]} changeDay={changeDay} units={props.units} />
+        <ForecastPanel weather={forecast[2]} changeDay={changeDay} units={props.units} />
       </div>
     </div>
   );

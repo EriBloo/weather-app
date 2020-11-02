@@ -31,7 +31,7 @@ function ChartPanel(props) {
           <button type="button" onClick={changeChart} data="rain">Rain</button>
           <button type="button" onClick={changeChart} data="wind">Wind</button>
         </div>
-        <Charts chart={chart} weather={props.weather} />
+        <Charts chart={chart} units={props.units} weather={props.weather} />
       </div>
     </div>
   );

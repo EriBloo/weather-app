@@ -6,13 +6,14 @@ function TempChart(props) {
     const dataToReturn = [];
     data.map((d) => dataToReturn.push([
       format(new Date(d.time), 'H:mm'),
-      d.temp_c,
-      d.feelslike_c,
+      props.units === 'metric' ? d.temp_c : d.temp_f,
+      props.units === 'metric' ? d.feelslike_c : d.feelslike_f,
     ]));
     return dataToReturn;
   }
 
   const tempData = getTempData(props.weather);
+  const unit = props.units === 'metric' ? 'Celsius' : 'Fahrenheit';
 
   return (
     <Chart
@@ -28,7 +29,7 @@ function TempChart(props) {
           width: '80%',
           height: '60%',
         },
-        vAxis: { title: 'Degrees (Celsius)' },
+        vAxis: { title: `Degrees (${unit})` },
       }}
     />
   );
@@ -39,13 +40,14 @@ function RainChart(props) {
     const dataToReturn = [];
     data.map((d) => dataToReturn.push([
       format(new Date(d.time), 'H:mm'),
-      d.precip_mm,
+      props.units === 'metric' ? d.precip_mm : d.precip_in,
       d.humidity,
     ]));
     return dataToReturn;
   }
 
   const rainData = getRainData(props.weather);
+  const unit = props.units === 'metric' ? 'mm' : 'in';
 
   return (
     <Chart
@@ -66,7 +68,7 @@ function RainChart(props) {
           1: { targetAxisIndex: '1', type: 'line' },
         },
         vAxes: {
-          0: { title: 'Precipitation (mm)', baseline: 0, minValue: 1 },
+          0: { title: `Precipitation (${unit})`, baseline: 0, minValue: 1 },
           1: { title: 'Humidity (%)', baseline: 0 },
         },
         vAxis: { baseline: 0 },
@@ -80,13 +82,14 @@ function WindChart(props) {
     const dataToReturn = [];
     data.map((d) => dataToReturn.push([
       format(new Date(d.time), 'H:mm'),
-      d.wind_kph,
-      d.gust_kph,
+      props.units === 'metric' ? d.wind_kph : d.wind_mph,
+      props.units === 'metric' ? d.gust_kph : d.gust_mph,
     ]));
     return dataToReturn;
   }
 
   const windData = getWindData(props.weather);
+  const unit = props.units === 'metric' ? 'kph' : 'mph';
 
   return (
     <Chart
@@ -102,7 +105,7 @@ function WindChart(props) {
           width: '80%',
           height: '60%',
         },
-        vAxis: { title: 'Strength (kph)' },
+        vAxis: { title: `Strength (${unit})` },
       }}
     />
   );
@@ -111,11 +114,11 @@ function WindChart(props) {
 function Charts(props) {
   switch (props.chart) {
     case 'temp':
-      return <TempChart weather={props.weather} />;
+      return <TempChart units={props.units} weather={props.weather} />;
     case 'rain':
-      return <RainChart weather={props.weather} />;
+      return <RainChart units={props.units} weather={props.weather} />;
     case 'wind':
-      return <WindChart weather={props.weather} />;
+      return <WindChart units={props.units} weather={props.weather} />;
     default:
       break;
   }
