@@ -35,7 +35,7 @@ function ForecastPanel(props) {
 
   useEffect(() => {
     setConditions(changeConditions(props.units, props.weather));
-  }, [props.units]);
+  }, [props.units, props.weather]);
 
   return (
     <div className="panel-wrapper">
@@ -73,7 +73,7 @@ function ForecastPanel(props) {
           <p>{'average humidity: '}</p>
           <p>
             {conditions.avgHumidity}
-            {conditions.humidity}
+            {conditions.humidityUnit}
           </p>
         </span>
       </div>

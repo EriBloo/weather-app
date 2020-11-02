@@ -1,0 +1,15 @@
+.position-wrapper {
+  
+    .fas {
+    font-size: 2rem;
+    color: #595f6e;
+    margin: 1rem;
+    cursor: pointer;
+    transition: transform 0.3s ease, color 0.2s ease;
+
+    &:hover {
+      transform: scale(1.2);
+      color: #5fa8d3;
+    }
+  }
+}

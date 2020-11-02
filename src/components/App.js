@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import WeatherPage from './WeatherPage';
 import ToggleUnits from './ToggleUnits';
+import LocationSearch from './LocationSearch';
 import '../styles/App.scss';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <nav className="nav">
           <ToggleUnits toggleUnits={toggleUnits} />
           <SearchBar />
+          <LocationSearch />
         </nav>
         <Switch>
           <Route

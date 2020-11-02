@@ -20,7 +20,6 @@ function WeatherPage(props) {
     );
     const data = await response.json();
 
-    console.log(data);
     return data;
   }
 
@@ -32,7 +31,7 @@ function WeatherPage(props) {
   }
 
   function changeDay(date) {
-    const newDay = differenceInCalendarDays(new Date(date), new Date());
+    const newDay = differenceInCalendarDays(new Date(date), new Date(forecast[0].date));
     setDay(newDay);
   }
 

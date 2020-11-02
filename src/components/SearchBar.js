@@ -55,7 +55,7 @@ function SearchBar() {
               state: {
                 lat: city.lat,
                 lon: city.lon,
-                name: city.name.split(',')[0],
+                name: `in ${city.name.split(',')[0]}`,
               },
             }}
             className="city-data"

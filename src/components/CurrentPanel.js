@@ -38,13 +38,13 @@ function CurrentPanel(props) {
 
   useEffect(() => {
     setConditions(changeConditions(props.units, props.weather));
-  }, [props.units]);
+  }, [props.units, props.weather]);
 
   return (
     <div className="panel-wrapper">
       <div className="panel current">
         <h2 className="description">
-          {'Current weather in '}
+          {'Current weather '}
           {props.city}
         </h2>
         <span className="column-wrapper">

@@ -1,0 +1,44 @@
+@import url('https://api.tiles.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css');
+
+.map-wrapper {
+  position: relative;
+  
+  .map {
+    position: absolute;
+    top: 4.5rem;
+    right: 0;
+    height: 20rem;
+    width: 30rem;
+    background-color: #f5f6fe;
+    border-radius: 0.3rem;
+    display: grid;
+    place-items: center;
+    z-index: 2;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+
+    .map-container {
+      height: 90%;
+      width: 90%;
+    }
+  }
+
+  .visible {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .fas {
+    font-size: 2rem;
+    color: #595f6e;
+    margin: 1rem;
+    cursor: pointer;
+    transition: transform 0.3s ease, color 0.2s ease;
+
+    &:hover {
+      transform: scale(1.2);
+      color: #5fa8d3;
+    }
+  }
+}
